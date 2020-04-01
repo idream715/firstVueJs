@@ -4,8 +4,14 @@
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link>
     </div>
-    <h1>{{message}}</h1>
-    <button @click="reverseMessage">click</button>
+    <h1>your name is:{{message}}</h1>
+    <input v-model="message" placeholder="nick name">
+    <button v-on:click="isHidden = !isHidden">show</button>
+    <button v-on:click="greet()">alert</button>
+    <button @click="reverseMessage">reverse</button>
+    <h1 v-if="!isHidden">Hello {{message}}!</h1>
+  
+    
     <!-- <router-view/> -->
   </div>
 </template>
@@ -14,12 +20,19 @@
 export default {
   data() {
     return {
-      message: "hello world suratat"
+      message: "",
+      isHidden: true
     }
   },
   methods: {
     reverseMessage: function () {
       return  this.message = this.message.split('').reverse().join('')
+    },
+    greet: function () {
+      return alert('Hello ' + this.message + '!')
+    },
+    show: function () {
+      return this.message
     }
   },
 }
