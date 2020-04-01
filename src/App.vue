@@ -4,10 +4,26 @@
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link>
     </div>
-    <router-view/>
+    <h1>{{message}}</h1>
+    <button @click="reverseMessage">click</button>
+    <!-- <router-view/> -->
   </div>
 </template>
 
+<script>
+export default {
+  data() {
+    return {
+      message: "hello world suratat"
+    }
+  },
+  methods: {
+    reverseMessage: function () {
+      return  this.message = this.message.split('').reverse().join('')
+    }
+  },
+}
+</script>
 <style>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
