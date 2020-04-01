@@ -10,8 +10,6 @@
     <button v-on:click="greet()">alert</button>
     <button @click="reverseMessage">reverse</button>
     <h1 v-if="!isHidden">Hello {{message}}!</h1>
-  
-    
     <!-- <router-view/> -->
   </div>
 </template>
@@ -30,9 +28,6 @@ export default {
     },
     greet: function () {
       return alert('Hello ' + this.message + '!')
-    },
-    show: function () {
-      return this.message
     }
   },
 }
