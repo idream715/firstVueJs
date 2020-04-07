@@ -1,8 +1,10 @@
 <template>
   <div class="hello">
-    <h1>{{ msg }}</h1>
+    <h1>{{ msgHello }}</h1>
+    <input v-model="sendUp" placeholder="Emit Send Variable Up"/>
+    <button @click="sending">Send</button>
     <p>
-      For a guide and recipes on how to configure / customize this project,<br>
+      For a guide and recipes on hffffow to configure / customize this project,<br>
       check out the
       <a href="https://cli.vuejs.org" target="_blank" rel="noopener">vue-cli documentation</a>.
     </p>
@@ -35,8 +37,16 @@
 <script>
 export default {
   name: 'HelloWorld',
+  data: () => ({
+    sendUp: ''
+  }),
   props: {
-    msg: String
+    msgHello: String
+  },
+  methods: {
+    sending () {
+      this.$emit('sendingUp', this.sendUp) // custom event 'sendingUp' + parameter 
+    }
   }
 }
 </script>

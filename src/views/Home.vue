@@ -1,7 +1,8 @@
 <template>
   <div class="home">
     <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <h1>{{ msgFromHello }}</h1>
+    <HelloWorld :msgHello="msgHome" @sendingUp="received"/>
   </div>
 </template>
 
@@ -11,8 +12,17 @@ import HelloWorld from '@/components/HelloWorld.vue'
 
 export default {
   name: 'Home',
+  data: () => ({
+    msgHome: 'Sending From Home.vue',
+    msgFromHello: '',
+  }),
   components: {
     HelloWorld
+  },
+  methods: {
+    received (e) {
+      this.msgFromHello = e
+    }
   }
 }
 </script>
