@@ -1,50 +1,44 @@
 <template>
-  <div class="hello">
-    <!-- <h1>{{ msg }}</h1> -->
-    <!-- work1 -->
-      <!-- <h1>your name is:{{message}}</h1>
-      <input v-model="message" placeholder="nick name">
-      <button @click="submit">click</button>
-      <button v-on:click="greet()">alert</button>
-      <button v-on:click="reverseMessage">reverse</button>
-      <h1 v-if="isShow">Hello {{message}}!</h1>
-      <br>
-      <hr> -->
-
-    <!-- work2 -->
-    <p>จังหวัด :{{selected}}</p>
-    <select v-model="selected" >
-      <option value="">กรุณาเลือกจังหวัด</option>
-      <option v-for="province in provinces " :key="province" :value="province">{{province}}</option>
-    </select>
-    <button @click="submit">submit</button>
-    
-    <!-- <button @click="$emit('lastMem', rederName('พระ',lastMem))">select</button> -->
-
-    <br>
-    <br>
-    <table v-if="isShow">
-      <tr>
-        <th>ลำดับ</th>
-        <th>ศูนย์</th>
-        <th>หัวหน้าศูนย์</th>
-      </tr>
-      <tr v-for="(el, i) in selectedP" :key="i">
-        <td>{{i+1}}</td>
-        <td>{{el.addressName}}</td>
-        <td>{{rederName("พระ",el.holderName)}}</td>
-      </tr>
-    </table>
-  </div>
+  <v-container>
+    <v-row class="text-center">
+      <v-col class="mb-4">
+        <div class="hello">
+          <p>จังหวัด :{{selected}}</p>
+          <select v-model="selected" >
+            <option value="">กรุณาเลือกจังหวัด</option>
+            <option v-for="province in provinces " :key="province" :value="province">{{province}}</option>
+          </select>
+          <!-- <button @click="submit">submit</button> -->
+          <br>
+          <br>
+          <table v-if="isShow">
+            <tr>
+              <th>ลำดับ</th>
+              <th>ศูนย์</th>
+              <th>หัวหน้าศูนย์</th>
+              <th>ดูข้อมูล</th>
+            </tr>
+            <tr v-for="(el, i) in selectedP" :key="i">
+              <td>{{i+1}}</td>
+              <td>{{el.addressName}}</td>
+              <td>{{rederName("พระ",el.holderName)}}</td>
+              <button @click="clickedSelected(el)">Select</button>
+              <!-- <button @click="clickedSendId(el.id)">Select</button> -->
+            </tr>
+          </table>
+        </div>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script>
-export default {
-  name: 'HelloWorld',
-  props: {
-    msg: String
-  },
-   data() {
+  export default {
+    name: 'HelloWorld',
+    props: {
+      msg: String
+    },
+    data() {
       return {
         isShow: true,
         selected: ""
@@ -73,6 +67,14 @@ export default {
         }else{
           return input
         }
+      },
+      clickedSelected(selected){
+        // console.log(e.target.value)
+        this.$store.dispatch('setLastMemBySelected', {input: this.msg,  selected: selected})
+        this.$router.push('/result')
+      },
+      clickedSendId(id){
+        this.$router.push(`/result/${id}`)
       }
     },
     computed:{
@@ -89,23 +91,5 @@ export default {
         return this.selectedP[this.selectedP.length - 1];
       }
     }
-}
+  }
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-h3 {
-  margin: 40px 0 0;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-}
-</style>

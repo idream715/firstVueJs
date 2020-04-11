@@ -6,6 +6,7 @@
             <h4>ฉายา : {{lastName}}</h4>
             <h4>ศูนย์ : {{lastMem.addressName}}</h4>
             <h4>จังหวัด : {{lastMem.addressLv2}}</h4>
+            <h4>ผลการเลือกของคุณ{{userName}}</h4>
         </div>
     </div>
 </template>
@@ -15,13 +16,11 @@ export default {
     methods:{
     },
     computed:{
+        userName(){
+            return this.$store.getters.getInput
+        },
         name(){
-            let getInput = this.$store.getters.getInput
-            if(getInput){
-                return  `พระ${getInput}`
-            }else{
-                return  this.$store.getters.getName
-            }
+            return this.$store.getters.getName
         },
         lastName(){
             return this.$store.getters.getLastName
@@ -37,9 +36,5 @@ export default {
 img {
     width : 200px;
     float : center;
-}
-h4 {
-    text-align: center;
-    margin: 0 0 15 100px;
 }
 </style>
