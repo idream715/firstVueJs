@@ -3,12 +3,15 @@
     <v-row class="text-center">
       <v-col class="mb-4">
         <div class="hello">
+          <h2>ค้นหาศูนย์แต่ละจังหวัด</h2>
+          <p>ชื่อของคุณ : {{ msg }}</p>
+          <input v-model="msg" placeholder="ชื่อจริง">
           <p>จังหวัด :{{selected}}</p>
           <select v-model="selected" >
             <option value="">กรุณาเลือกจังหวัด</option>
             <option v-for="province in provinces " :key="province" :value="province">{{province}}</option>
           </select>
-          <!-- <button @click="submit">submit</button> -->
+          
           <br>
           <br>
           <table v-if="isShow">
@@ -35,25 +38,16 @@
 <script>
   export default {
     name: 'HelloWorld',
-    props: {
-      msg: String
-    },
+   
     data() {
       return {
         isShow: true,
+        msg: "",
         selected: ""
       }
     },
     methods: {
-      // reverseMessage: function () {
-        //   return  this.message = this.message.split('').reverse().join('')
-        // },
-        // greet: function () {
-        //   return alert('Hello ' + this.message + '!')
-        // },
       submit(){
-        // this.isShow = !this.isShow 
-        // this.$store.dispatch('setProvinceBySelected', this.selected)
         if(this.selected){
           this.$store.dispatch('setLastMemBySelected', {input: this.msg,  selected: this.lastMem})
           this.$router.push('/result')
@@ -69,7 +63,6 @@
         }
       },
       clickedSelected(selected){
-        // console.log(e.target.value)
         this.$store.dispatch('setLastMemBySelected', {input: this.msg,  selected: selected})
         this.$router.push('/result')
       },
