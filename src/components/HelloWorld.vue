@@ -59,7 +59,7 @@
           <v-card-actions>
             <v-btn 
             @click="clickedSelected(el)"
-            text color="deep-purple accent-4" >select</v-btn>
+            text color="primary accent-4" >select</v-btn>
           </v-card-actions>
       </v-card>
     </v-row>
