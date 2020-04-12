@@ -1,20 +1,39 @@
 <template>
   <v-container>
+          <h2 class="display-2 pa-10">ลงทะเบียนปฏิบัติธรรมศูนย์สาขาภายในประเทศ</h2>
     <v-row class="text-center">
-      <v-col class="mb-4">
-        <div class="hello">
-          <h2>ค้นหาศูนย์แต่ละจังหวัด</h2>
-          <p>ชื่อของคุณ : {{ msg }}</p>
-          <input v-model="msg" placeholder="ชื่อจริง">
-          <p>จังหวัด :{{selected}}</p>
+          <br>
+          <br>
+          <br>
+          <!-- <input v-model="msg" placeholder="ชื่อจริง"> -->
+           <v-col cols="12" sm="6">
+              <v-text-field  
+                v-model="msg"  
+                label="ชื่อของคุณ"  
+                :rules="nameRules" 
+                :counter="20" 
+                required >
+              </v-text-field>
+            </v-col>
+            <v-col cols="12" sm="6">
+              <v-select 
+                v-model="selected" 
+                :items="provinces" 
+                label="กรุณาเลือกจังหวัด"  
+                :rules="provinceRules" 
+                required>
+              </v-select> 
+            </v-col>
+           <br>
+           
+          <!-- <p>จังหวัด :{{selected}}</p>
           <select v-model="selected" >
             <option value="">กรุณาเลือกจังหวัด</option>
             <option v-for="province in provinces " :key="province" :value="province">{{province}}</option>
-          </select>
-          
-          <br>
-          <br>
-          <table v-if="isShow">
+          </select> -->
+        
+      
+          <!-- <table v-if="isShow">
             <tr>
               <th>ลำดับ</th>
               <th>ศูนย์</th>
@@ -26,13 +45,26 @@
               <td>{{el.addressName}}</td>
               <td>{{rederName("พระ",el.holderName)}}</td>
               <button @click="clickedSelected(el)">Select</button>
-              <!-- <button @click="clickedSendId(el.id)">Select</button> -->
+              <button @click="clickedSendId(el.id)">Select</button>
             </tr>
-          </table>
-        </div>
-      </v-col>
+          </table> -->
+    </v-row>
+    <v-row>
+      <v-card class="mx-auto ma-4 pa-4 col-12"  max-width="344" v-for="(el, i) in selectedP" :key="i" >
+              <v-card-text >
+                <div class="display-1 text--">{{el.addressName}} <br><br> </div>
+                <div class="text--primary">หัวหน้าศูนย์  <br> {{rederName("พระ",el.holderName)}}<br>
+                </div>
+              </v-card-text>
+          <v-card-actions>
+            <v-btn 
+            @click="clickedSelected(el)"
+            text color="deep-purple accent-4" >select</v-btn>
+          </v-card-actions>
+      </v-card>
     </v-row>
   </v-container>
+  
 </template>
 
 <script>
@@ -43,7 +75,14 @@
       return {
         isShow: true,
         msg: "",
-        selected: ""
+        selected: "",
+        nameRules: [
+          v => !!v || 'Name is required',
+          v => v.length <= 20 || 'Name must be less than 10 characters',
+        ],
+        provinceRules: [
+          v => !!v || 'province is required',
+        ],
       }
     },
     methods: {

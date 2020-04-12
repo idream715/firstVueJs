@@ -6,7 +6,7 @@
             <h4>ฉายา : {{lastName}}</h4>
             <h4>ศูนย์ : {{lastMem.addressName}}</h4>
             <h4>จังหวัด : {{lastMem.addressLv2}}</h4>
-            <h4>ผลการเลือกของคุณ{{userName}}</h4>
+            <h4>ผลการเลือกของคุณ : {{userName}}</h4>
         </div>
     </div>
 </template>
