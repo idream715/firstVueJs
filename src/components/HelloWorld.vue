@@ -1,6 +1,9 @@
 <template>
   <v-container>
           <h2 class="display-2 pa-10">ลงทะเบียนปฏิบัติธรรมศูนย์สาขาภายในประเทศ</h2>
+          <v-alert type="warning" v-if="alertInput">
+            กรุณากรอกชื่อของคุณ
+          </v-alert>
     <v-row class="text-center">
            <v-col cols="12" sm="6">
               <v-text-field  
@@ -28,13 +31,13 @@
                 <v-col cols="12">
                   <div height="300" class="display-1 text--primary">{{el.addressName}} </div>
                 </v-col>
-                <div class="text--primary">หัวหน้าศูนย์  <br> {{rederName("พระ",el.holderName)}}<br>
+                <div class="text--primary">หัวหน้าศูนย์  <br>{{el.holderName}}<br>
                 </div>
               </v-card-text>
           <v-card-actions>
             <v-btn 
             @click="clickedSelected(el)"
-            text color="primary accent-4" >select</v-btn>
+            text color="primary accent-4">select</v-btn>
           </v-card-actions>
       </v-card>
     </v-row>
@@ -49,6 +52,7 @@
     data() {
       return {
         isShow: true,
+        alertInput: false,
         msg: "",
         selected: "",
         nameRules: [
@@ -77,8 +81,12 @@
         }
       },
       clickedSelected(selected){
-        this.$store.dispatch('setLastMemBySelected', {input: this.msg,  selected: selected})
-        this.$router.push('/result')
+        if(this.msg){
+          this.$store.dispatch('setLastMemBySelected', {input: this.msg,  selected: selected})
+          this.$router.push('/result')
+        }else{
+          return this.alertInput = !this.alertInput
+        }
       },
       clickedSendId(id){
         this.$router.push(`/result/${id}`)
