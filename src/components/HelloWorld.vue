@@ -52,7 +52,7 @@
     <v-row>
       <v-card class="mx-auto ma-4 pa-4 col-12"  max-width="344" v-for="(el, i) in selectedP" :key="i" >
               <v-card-text >
-                <div class="display-1 text--">{{el.addressName}} <br><br> </div>
+                <div class="display-1 text--primary">{{el.addressName}} <br><br> </div>
                 <div class="text--primary">หัวหน้าศูนย์  <br> {{rederName("พระ",el.holderName)}}<br>
                 </div>
               </v-card-text>
