@@ -1,59 +1,65 @@
 <template>
   <v-container>
+          <h2 class="display-2 pa-10">ลงทะเบียนปฏิบัติธรรมศูนย์สาขาภายในประเทศ</h2>
     <v-row class="text-center">
-      <v-col class="mb-4">
-        <div class="hello">
-          <p>จังหวัด :{{selected}}</p>
-          <select v-model="selected" >
-            <option value="">กรุณาเลือกจังหวัด</option>
-            <option v-for="province in provinces " :key="province" :value="province">{{province}}</option>
-          </select>
-          <!-- <button @click="submit">submit</button> -->
-          <br>
-          <br>
-          <table v-if="isShow">
-            <tr>
-              <th>ลำดับ</th>
-              <th>ศูนย์</th>
-              <th>หัวหน้าศูนย์</th>
-              <th>ดูข้อมูล</th>
-            </tr>
-            <tr v-for="(el, i) in selectedP" :key="i">
-              <td>{{i+1}}</td>
-              <td>{{el.addressName}}</td>
-              <td>{{rederName("พระ",el.holderName)}}</td>
-              <button @click="clickedSelected(el)">Select</button>
-              <!-- <button @click="clickedSendId(el.id)">Select</button> -->
-            </tr>
-          </table>
-        </div>
-      </v-col>
+           <v-col cols="12" sm="6">
+              <v-text-field  
+                v-model="msg"  
+                label="ชื่อของคุณ"  
+                :rules="nameRules" 
+                :counter="20" 
+                required >
+              </v-text-field>
+            </v-col>
+            <v-col cols="12" sm="6">
+              <v-select 
+                v-model="selected" 
+                :items="provinces" 
+                label="กรุณาเลือกจังหวัด"  
+                :rules="provinceRules" 
+                required>
+              </v-select> 
+            </v-col>
+           <br>
+    </v-row>
+    <v-row>
+      <v-card class="mx-auto ma-4 pa-4 col-12"  max-width="344" v-for="(el, i) in selectedP" :key="i" >
+              <v-card-text >
+                  <div height="300" class="display-1 text--primary">{{el.addressName}} </div>
+                <div class="text--primary">หัวหน้าศูนย์  <br> {{rederName("พระ",el.holderName)}}<br>
+                </div>
+              </v-card-text>
+          <v-card-actions>
+            <v-btn 
+            @click="clickedSelected(el)"
+            text color="primary accent-4" >select</v-btn>
+          </v-card-actions>
+      </v-card>
     </v-row>
   </v-container>
+  
 </template>
 
 <script>
   export default {
     name: 'HelloWorld',
-    props: {
-      msg: String
-    },
+   
     data() {
       return {
         isShow: true,
-        selected: ""
+        msg: "",
+        selected: "",
+        nameRules: [
+          v => !!v || 'Name is required',
+          v => v.length <= 20 || 'Name must be less than 10 characters',
+        ],
+        provinceRules: [
+          v => !!v || 'province is required',
+        ],
       }
     },
     methods: {
-      // reverseMessage: function () {
-        //   return  this.message = this.message.split('').reverse().join('')
-        // },
-        // greet: function () {
-        //   return alert('Hello ' + this.message + '!')
-        // },
       submit(){
-        // this.isShow = !this.isShow 
-        // this.$store.dispatch('setProvinceBySelected', this.selected)
         if(this.selected){
           this.$store.dispatch('setLastMemBySelected', {input: this.msg,  selected: this.lastMem})
           this.$router.push('/result')
@@ -69,7 +75,6 @@
         }
       },
       clickedSelected(selected){
-        // console.log(e.target.value)
         this.$store.dispatch('setLastMemBySelected', {input: this.msg,  selected: selected})
         this.$router.push('/result')
       },
