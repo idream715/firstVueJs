@@ -94,13 +94,16 @@
                         <p>Date in ISO format: <strong>{{ date }}</strong></p>
                         </v-col>
                     </v-row>  -->
-                
+                     <v-card-title class="font-weight-bold">เลือกเวลาปฎิบัติธรรม</v-card-title>
+
                     <v-card-text>
                         <v-chip-group v-model="selection" active-class="deep-purple accent-4 white--text" column>
                             <v-chip>5:30PM</v-chip>
                             <v-chip>7:30PM</v-chip>
                             <v-chip>8:00PM</v-chip>
                             <v-chip>9:00PM</v-chip>
+                            <v-chip>10:00PM</v-chip>
+                            <v-chip>11:00PM</v-chip>
                         </v-chip-group>
                     </v-card-text>
 
@@ -115,7 +118,7 @@
                     
                             <v-card>
                                 <v-card-title class="headline grey lighten-2" primary-title>อนุโมทนาบุญกับการปฎิบัติธรรมในครั้งนี้ </v-card-title>
-                                <v-card-text>สาธุ</v-card-text>
+                                <v-card-text class="mt-5">คุณได้ทำการลงทะเบียนเรียบร้อย</v-card-text>
 
                                 <v-divider></v-divider>
                         
