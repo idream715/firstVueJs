@@ -1,9 +1,30 @@
 <template>
   <v-container>
-          <h2 class="display-2 pa-10">ลงทะเบียนปฏิบัติธรรมศูนย์สาขาภายในประเทศ</h2>
-          <v-alert type="warning" v-if="alertInput">
-            กรุณากรอกชื่อของคุณ
-          </v-alert>
+    <h2 class="display-2 pa-10">ลงทะเบียนปฏิบัติธรรมศูนย์สาขาภายในประเทศ</h2>
+    <v-alert
+      dense
+      outlined
+      type="error"
+      :value="alertInput"
+      close-text="Close Alert"
+      transition="scale-transition"
+    >
+      กรุณากรอก <strong>ชื่อของคุณ</strong> 
+    </v-alert>
+    <v-btn
+      v-scroll="onScroll"
+      v-show="fab"
+      fab
+      dark
+      fixed
+      bottom
+      right
+      color="primary"
+      @click="toTop"
+    >
+      <!-- <v-icon>keyboard_arrow_up</v-icon> -->
+      <v-icon>/\</v-icon>
+    </v-btn>
     <v-row class="text-center">
            <v-col cols="12" sm="6">
               <v-text-field  
@@ -62,6 +83,7 @@
         provinceRules: [
           v => !!v || 'province is required',
         ],
+        fab: false
       }
     },
     methods: {
@@ -85,11 +107,21 @@
           this.$store.dispatch('setLastMemBySelected', {input: this.msg,  selected: selected})
           this.$router.push('/result')
         }else{
-          return this.alertInput = !this.alertInput
+          this.alertInput = !this.alertInput
+          
+          this.$vuetify.goTo(0)
         }
       },
       clickedSendId(id){
         this.$router.push(`/result/${id}`)
+      },
+      onScroll (e) {
+        if (typeof window === 'undefined') return
+        const top = window.pageYOffset ||   e.target.scrollTop || 0
+        this.fab = top > 20
+      },
+      toTop () {
+        this.$vuetify.goTo(0)
       }
     },
     computed:{
