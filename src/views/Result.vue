@@ -8,22 +8,11 @@
                     <v-img height="100%" src="../assets/6001032.jpg"></v-img>
                 </div>    
                 <div class="col-md-7"> 
-                    <v-list-item class="grow">
-                        <v-list-item-avatar color="grey darken-3">
-                        <v-img
-                            class="elevation-6"
-                            src="https://avataaars.io/?avatarStyle=Transparent&topType=ShortHairShortCurly&accessoriesType=Prescription02&hairColor=Black&facialHairType=Blank&clotheType=Hoodie&clotheColor=White&eyeType=Default&eyebrowType=DefaultNatural&mouthType=Default&skinColor=Light"
-                        ></v-img>
-                        </v-list-item-avatar>
-                        <v-card-title>{{userName}}</v-card-title>
-                    </v-list-item>  
-
                     <v-card-title class="font-weight-bold">ติดต่อ</v-card-title>
                     
                     <v-card-text class="subtitle-1 font-weight-medium">
                        
-                        <div>ชื่อหัวหน้าศูนย์ : {{name}}</div>
-                        <div>ฉายา : {{lastName}}</div>
+                        <div>ชื่อหัวหน้าศูนย์ : {{name}} {{lastName}}</div>
                         <div>Tel. : 0{{lastMem.telephone}}</div>
                     </v-card-text>
                     
@@ -94,6 +83,15 @@
                         <p>Date in ISO format: <strong>{{ date }}</strong></p>
                         </v-col>
                     </v-row>  -->
+                    <v-list-item class="grow">
+                        <v-list-item-avatar color="grey darken-3">
+                        <v-img
+                            class="elevation-6"
+                            src="https://avataaars.io/?avatarStyle=Transparent&topType=ShortHairShortCurly&accessoriesType=Prescription02&hairColor=Black&facialHairType=Blank&clotheType=Hoodie&clotheColor=White&eyeType=Default&eyebrowType=DefaultNatural&mouthType=Default&skinColor=Light"
+                        ></v-img>
+                        </v-list-item-avatar>
+                        <v-card-title>{{userName}}</v-card-title>
+                    </v-list-item>  
                      <v-card-title class="font-weight-bold">เลือกเวลาปฎิบัติธรรม</v-card-title>
 
                     <v-card-text>
@@ -108,23 +106,21 @@
                     </v-card-text>
 
                     <v-card-actions>
-                        <!-- <v-btn class="ma-2" color="primary" dark>
-                            ยืนยัน
-                        </v-btn> -->
                         <v-dialog v-model="dialog" width="500">
+                            
                             <template v-slot:activator="{ on }">
                                 <v-btn color="primary" dark v-on="on">ยืนยัน</v-btn>
                             </template>
                     
                             <v-card>
                                 <v-card-title class="headline grey lighten-2" primary-title>อนุโมทนาบุญกับการปฎิบัติธรรมในครั้งนี้ </v-card-title>
-                                <v-card-text class="mt-5">คุณได้ทำการลงทะเบียนเรียบร้อย</v-card-text>
+                                <v-card-text class="mt-5">คุณ{{userName}}ได้ทำการลงทะเบียนเรียบร้อย</v-card-text>
 
                                 <v-divider></v-divider>
                         
                                 <v-card-actions>
                                     <v-spacer></v-spacer>
-                                    <v-btn color="primary" text @click="dialog = false">ยอมรับ</v-btn>
+                                    <v-btn color="primary" text @click="modal">ยอมรับ</v-btn>
                                 </v-card-actions>
                             </v-card>
                         </v-dialog>
@@ -165,6 +161,10 @@ export default {
     //     const [month, day, year] = date.split('/')
     //     return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`
     //   },
+        modal(){
+            this.dialog = !this.dialog
+            this.$router.replace('/')
+        }
     },
 
     computed:{

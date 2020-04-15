@@ -48,18 +48,22 @@
     </v-row>
     <v-row>
       <v-card class="mx-auto ma-4 pa-4 col-12"  max-width="344" v-for="(el, i) in selectedP" :key="i" >
-              <v-card-text >
-                <v-col cols="12">
-                  <div height="300" class="display-1 text--primary">{{el.addressName}} </div>
-                </v-col>
-                <div class="text--primary">หัวหน้าศูนย์  <br>{{el.holderName}}<br>
-                </div>
-              </v-card-text>
-          <v-card-actions>
-            <v-btn 
-            @click="clickedSelected(el)"
-            text color="primary accent-4">select</v-btn>
-          </v-card-actions>
+        <v-card-title
+          class="title text--primary"
+        >
+          {{el.addressName}} 
+        </v-card-title>
+        <v-card-text>
+          
+          <div class="text--primary">หัวหน้าศูนย์  <br>{{el.holderName}}<br>
+          </div>
+        </v-card-text>
+        <v-spacer></v-spacer>
+        <v-card-actions>
+          <v-btn 
+          @click="clickedSelected(el)"
+          text color="primary accent-4">select</v-btn>
+        </v-card-actions>
       </v-card>
     </v-row>
   </v-container>
@@ -78,7 +82,7 @@
         selected: "",
         nameRules: [
           v => !!v || 'Name is required',
-          v => v.length <= 20 || 'Name must be less than 10 characters',
+          v => v.length <= 20 || 'Name must be less than 20 characters',
         ],
         provinceRules: [
           v => !!v || 'province is required',
