@@ -1,9 +1,30 @@
 <template>
   <v-container>
-          <h2 class="display-2 pa-10">ลงทะเบียนปฏิบัติธรรมศูนย์สาขาภายในประเทศ</h2>
-          <v-alert type="warning" v-if="alertInput">
-            กรุณากรอกชื่อของคุณ
-          </v-alert>
+    <h2 class="display-2 pa-10">ลงทะเบียนปฏิบัติธรรมศูนย์สาขาภายในประเทศ</h2>
+    <v-alert
+      dense
+      outlined
+      type="error"
+      :value="alertInput"
+      close-text="Close Alert"
+      transition="scale-transition"
+    >
+      กรุณากรอก <strong>ชื่อของคุณ</strong> 
+    </v-alert>
+    <v-btn
+      v-scroll="onScroll"
+      v-show="fab"
+      fab
+      dark
+      fixed
+      bottom
+      right
+      color="primary"
+      @click="toTop"
+    >
+      <!-- <v-icon>keyboard_arrow_up</v-icon> -->
+      <v-icon>/\</v-icon>
+    </v-btn>
     <v-row class="text-center">
            <v-col cols="12" sm="6">
               <v-text-field  
@@ -27,18 +48,22 @@
     </v-row>
     <v-row>
       <v-card class="mx-auto ma-4 pa-4 col-12"  max-width="344" v-for="(el, i) in selectedP" :key="i" >
-              <v-card-text >
-                <v-col cols="12">
-                  <div height="300" class="display-1 text--primary">{{el.addressName}} </div>
-                </v-col>
-                <div class="text--primary">หัวหน้าศูนย์  <br>{{el.holderName}}<br>
-                </div>
-              </v-card-text>
-          <v-card-actions>
-            <v-btn 
-            @click="clickedSelected(el)"
-            text color="primary accent-4">select</v-btn>
-          </v-card-actions>
+        <v-card-title
+          class="title text--primary"
+        >
+          {{el.addressName}} 
+        </v-card-title>
+        <v-card-text>
+          
+          <div class="text--primary">หัวหน้าศูนย์  <br>{{el.holderName}}<br>
+          </div>
+        </v-card-text>
+        <v-spacer></v-spacer>
+        <v-card-actions>
+          <v-btn 
+          @click="clickedSelected(el)"
+          text color="primary accent-4">select</v-btn>
+        </v-card-actions>
       </v-card>
     </v-row>
   </v-container>
@@ -57,11 +82,12 @@
         selected: "",
         nameRules: [
           v => !!v || 'Name is required',
-          v => v.length <= 20 || 'Name must be less than 10 characters',
+          v => v.length <= 20 || 'Name must be less than 20 characters',
         ],
         provinceRules: [
           v => !!v || 'province is required',
         ],
+        fab: false
       }
     },
     methods: {
@@ -85,11 +111,21 @@
           this.$store.dispatch('setLastMemBySelected', {input: this.msg,  selected: selected})
           this.$router.push('/result')
         }else{
-          return this.alertInput = !this.alertInput
+          this.alertInput = !this.alertInput
+          
+          this.$vuetify.goTo(0)
         }
       },
       clickedSendId(id){
         this.$router.push(`/result/${id}`)
+      },
+      onScroll (e) {
+        if (typeof window === 'undefined') return
+        const top = window.pageYOffset ||   e.target.scrollTop || 0
+        this.fab = top > 20
+      },
+      toTop () {
+        this.$vuetify.goTo(0)
       }
     },
     computed:{
