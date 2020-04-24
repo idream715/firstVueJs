@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import api from 'n@/plugins/axios'
 
 Vue.use(Vuex)
 
@@ -3218,14 +3217,7 @@ export default new Vuex.Store({
     setLastMemBySelected({commit}, {input, selected}){
       commit('SET_INPUT_SELECTED', input)
       commit('SET_LASTMEM_SELECTED', selected)
-    },
-    getBooksFromApi({ commit }){
-      api.getDAta()
-        .then(res => {
-          
-        })
-        .catch()
-      }
+    }
   },
   getters: {
     getAddress(state){
