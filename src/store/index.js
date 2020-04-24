@@ -5,6 +5,7 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    email:'',
     addresses: 
         [
           {
@@ -3195,7 +3196,7 @@ export default new Vuex.Store({
     ],
     provinceSelected:[],
     input:"",
-    lastMem:[]
+    lastMem:[],
   },
   mutations: {
     SET_PROVINCE_SELECTED(state, payload){
@@ -3220,6 +3221,9 @@ export default new Vuex.Store({
     }
   },
   getters: {
+    isAuthenticated(state){
+      return !!state.email
+    },
     getAddress(state){
       return state.addresses
     },
