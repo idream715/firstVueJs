@@ -3229,6 +3229,9 @@ export default new Vuex.Store({
         alert(errorCode+' '+errorMessage)
       })
     },
+    logout({commit}){
+      commit('SET_EMAIL', null)
+    },
     setProvinceBySelected({state, commit}, selected){
       // ชื่อจังหวัด
       let arrayResult = state.addresses.filter(address => address.addressLv2 === selected)

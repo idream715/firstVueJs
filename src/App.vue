@@ -4,7 +4,7 @@
       app
       color="primary"
       dark
-    >
+      >
       <div class="d-flex align-center">
         <v-img
           alt="Vuetify Logo"
@@ -33,20 +33,17 @@
       >
         <span class="mr-2">Home</span>
       </v-btn>
+        <!-- router-link to="/result" -->
       <v-btn
-        router-link to="/result"
         text
-      >
-        <span class="mr-2">Result</span>
+        @click="logout"
+        >
+        <span class="mr-2">logout</span>
       </v-btn>
     </v-app-bar>
-
-    <!-- <v-content>
-      <HelloWorld/>
-    </v-content> -->
     <v-content 
       id="app"
-    >
+      >
       <router-view/>
     </v-content>
   </v-app>
@@ -65,6 +62,20 @@ export default {
   data: () => ({
     //
   }),
+  methods: {
+    logout(){
+      this.$store.dispatch('logout')
+      this.$router.push('login')
+    }
+  },
+  computed: {
+    on(){
+      if (! this.$route.name === 'login') {
+        return true
+      }else
+        return false
+    },
+  },
 };
 </script>
 
