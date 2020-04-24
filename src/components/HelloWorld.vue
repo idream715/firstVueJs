@@ -96,7 +96,7 @@
           this.$store.dispatch('setLastMemBySelected', {input: this.msg,  selected: this.lastMem})
           this.$router.push('/result')
         }else{
-          alert("กรุณากรอกเลือกจังหวัด")
+          alert("กรุณากรอกเลือกจังหวัด")   
         }
       },
       rederName(prefix,input){

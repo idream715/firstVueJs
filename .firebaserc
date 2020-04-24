@@ -1,5 +1,9 @@
 {
   "projects": {
+<<<<<<< HEAD
     "default": "projectdream-vue-book"
+=======
+    "default": "put-project-vue"
+>>>>>>> 436006130919199e0bb1b4bbe0d615100274259e
   }
 }
