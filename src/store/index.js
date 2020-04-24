@@ -1,5 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import firebase from '@/firebase.config.js'
+import router from '@/router/index.js'
 
 Vue.use(Vuex)
 
@@ -3199,6 +3201,9 @@ export default new Vuex.Store({
     lastMem:[],
   },
   mutations: {
+    SET_EMAIL(state, payload){
+      state.email = payload
+    },
     SET_PROVINCE_SELECTED(state, payload){
       state.provinceSelected = payload
     },
@@ -3210,6 +3215,20 @@ export default new Vuex.Store({
     }
   },
   actions: {
+    login({commit}, {email,password}){
+      firebase.signInWithEmailAndPassword(email, password)
+      .then(res=>{
+        console.log(res)
+        commit('SET_EMAIL', email)
+        router.push('/')
+      })
+      // .catch(err => console.log(err))
+      .catch(function(error) {
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        alert(errorCode+' '+errorMessage)
+      })
+    },
     setProvinceBySelected({state, commit}, selected){
       // ชื่อจังหวัด
       let arrayResult = state.addresses.filter(address => address.addressLv2 === selected)
